@@ -1,0 +1,138 @@
+*gitoverhere.txt*  Open current file/selection in browser or copy GitHub URL
+
+Author: Nick Atzert
+License: MIT
+
+==============================================================================
+CONTENTS                                                    *gitoverhere-contents*
+
+1. Introduction                                         |gitoverhere-introduction|
+2. Installation                                         |gitoverhere-installation|
+3. Usage                                                       |gitoverhere-usage|
+4. Commands                                                 |gitoverhere-commands|
+5. Configuration                                       |gitoverhere-configuration|
+6. Requirements                                         |gitoverhere-requirements|
+
+==============================================================================
+1. INTRODUCTION                                         *gitoverhere-introduction*
+
+GitOverHere is a Neovim plugin that allows you to quickly open the current file
+or selected lines in your default web browser, or copy the GitHub URL to your
+clipboard. It's particularly useful for sharing code snippets or quickly
+navigating to the web version of your repository.
+
+Features:
+- Open current file in browser at the GitHub repository
+- Copy GitHub URL to clipboard instead of opening
+- Support for line ranges and single line selections
+- Works with both default branch and current branch
+- Handles markdown files with plain text view
+- Supports visual mode selections
+
+==============================================================================
+2. INSTALLATION                                         *gitoverhere-installation*
+
+Using vim-plug: >
+    Plug 'your-username/gitoverhere.nvim'
+<
+
+Using packer.nvim: >
+    use 'your-username/gitoverhere.nvim'
+<
+
+Using lazy.nvim: >
+    {
+        'your-username/gitoverhere.nvim',
+        config = function()
+            require('gitoverhere').setup()
+        end
+    }
+<
+
+==============================================================================
+3. USAGE                                                       *gitoverhere-usage*
+
+The plugin provides a single command `:GitOverHere` that can be used in
+multiple ways:
+
+Basic usage:
+- `:GitOverHere` - Opens the current file in browser (default branch)
+- `:GitOverHere branch` - Opens the current file in browser (current branch)
+- `:GitOverHere copy` - Copies the current file's URL to clipboard (default
+  branch)
+- `:GitOverHere copy branch` - Copies the current file's URL to clipboard
+  (current branch)
+
+Visual mode:
+1. Select lines in visual mode
+2. Run `:GitOverHere` with desired options
+3. The URL will include line numbers for the selected range
+
+==============================================================================
+4. COMMANDS                                                 *gitoverhere-commands*
+
+                                                                  *:GitOverHere*
+:GitOverHere [copy] [branch]
+    Open the current file in the browser or copy the GitHub URL.
+
+    Arguments:
+        copy    - Copy the URL to clipboard instead of opening in browser
+        branch  - Use the current branch instead of the default branch
+
+    Examples:
+        " Open file in browser (default branch)
+        :GitOverHere
+
+        " Open file in browser (current branch)
+        :GitOverHere branch
+
+        " Copy URL to clipboard (default branch)
+        :GitOverHere copy
+
+        " Copy URL to clipboard (current branch)
+        :GitOverHere copy branch
+
+        " Open file in browser with line selection (default branch)
+        :'<,'>GitOverHere
+
+        " Open file in browser with line selection (current branch)
+        :'<,'>GitOverHere branch
+
+        " Copy URL with line selection to clipboard (default branch)
+        :'<,'>GitOverHere copy
+
+        " Copy URL with line selection to clipboard (current branch)"
+        :'<,'>GitOverHere copy branch
+
+
+
+==============================================================================
+5. CONFIGURATION                                       *gitoverhere-configuration*
+
+The plugin currently requires no configuration and works out of the box.
+Simply call the setup function in your init.lua: >
+
+    require('gitoverhere').setup()
+<
+
+Note: The plugin automatically loads when Neovim starts if properly installed.
+
+==============================================================================
+6. REQUIREMENTS                                         *gitoverhere-requirements*
+
+- Neovim
+- Git repository with a remote origin
+- macOS (uses `pbcopy` for clipboard and `open` for browser)
+- Internet connection for opening GitHub URLs
+
+The plugin uses several system commands:
+- `git`
+- `awk`
+- `sed`
+- `echo`
+- `pbcopy` - (macOS)
+- `open` - (macOS)
+
+==============================================================================
+vim:tw=78:ts=8:ft=help:norl:
+
